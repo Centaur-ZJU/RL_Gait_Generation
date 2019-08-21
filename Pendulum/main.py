@@ -6,7 +6,7 @@ import plotting
 def main():
     env = PendulumEnv(precision_th=3600, precision_thdot=100, max_speed=10, max_torque=10, dt=.05, nA=81, debug=False)
     Q, stats = q_learning(env, 10)
-    # plotting.plot_episode_stats(stats)
+    plotting.plot_episode_stats(stats)
     # test_Q(env,Q)
 
 

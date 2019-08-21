@@ -4,6 +4,7 @@ import sys
 import plotting
 import time
 
+
 def make_epsilon_greedy_policy(Q, epsilon, nA):
     """
     Creates an epsilon-greedy policy based on a given Q-function and epsilon.
