@@ -8,11 +8,9 @@ planeId = p.loadURDF("plane.urdf")
 cubeStartPos = [0,0,1]
 cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
 boxId = p.loadURDF("r2d2.urdf",cubeStartPos, cubeStartOrientation)
-t = time.time()
-for i in range (100000):
+for i in range (1000):
     p.stepSimulation()
-    # time.sleep(1./240.)
-print("{:.3f} s".format(time.time()-t))
+    time.sleep(1./240.)
 cubePos, cubeOrn = p.getBasePositionAndOrientation(boxId)
 print(cubePos,cubeOrn)
 p.disconnect()
