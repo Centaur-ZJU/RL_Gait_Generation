@@ -1,11 +1,19 @@
-from spinup import ppo_pytorch as ppo
+from spinup.utils.run_utils import ExperimentGrid
+from spinup import ppo_pytorch
 import torch
-import gym
-from pybullet_envs.gym_locomotion_envs import HumanoidFlagrunBulletEnv
 
-ac_kwargs = dict(hidden_sizes=[32,32], activation=torch.nn.ReLU)
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--cpu', type=int, default=1)
+    parser.add_argument('--num_runs', type=int, default=3)
+    args = parser.parse_args()
 
-logger_kwargs = dict(output_dir='/home/chk/文档/data', exp_name='HumanoidFlagrunBulletEnv')
-
-ppo(env_fn=HumanoidFlagrunBulletEnv, ac_kwargs=ac_kwargs, 
-    steps_per_epoch=1000, epochs=10, logger_kwargs=logger_kwargs)
+    eg = ExperimentGrid(name='ppo')
+    eg.add('env_name', 'Centaur-v0', '', True)
+    eg.add('seed', [10*i for i in range(args.num_runs)])
+    eg.add('epochs', 10)
+    eg.add('steps_per_epoch', 4000)
+    eg.add('ac_kwargs:hidden_sizes', [(32,), (64,64)], 'hid')
+    eg.add('ac_kwargs:activation', [torch.nn.Tanh, torch.nn.ReLU], '')
+    eg.run(ppo_pytorch, num_cpu=args.cpu)
