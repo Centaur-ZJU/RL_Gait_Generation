@@ -1,8 +1,9 @@
-from spinup.utils.test_policy import load_policy_and_env, run_policy
-import pybullet as p
+import gym
 import time
+from spinup.utils.test_policy import load_policy_and_env, run_policy
 
-physicsClient = p.connect(p.GUI)
-fpath = '/home/chk/文档/Centaur/data/2020-05-11_ppo_HumanoidFlagrunBulletEnv/'
-env, get_action = load_policy_and_env(fpath)
-run_policy(env, get_action, render=True)
+fpath = '/home/chk/文档/Centaur/'
+fname = 'data/2020-05-17_ppo_humanoidbulletenv-v0/2020-05-17_ppo_humanoidbulletenv-v0_s21'
+_, get_action = load_policy_and_env("".join([fpath, fname]), deterministic=True)
+env = gym.make("HumanoidBulletEnv-v0", render=True)
+run_policy(env, get_action)
