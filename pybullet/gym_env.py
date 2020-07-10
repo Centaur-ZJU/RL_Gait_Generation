@@ -10,10 +10,10 @@ if __name__ == '__main__':
     parser.add_argument('--num_runs', type=int, default=3)
     args = parser.parse_args()
 
-    eg = ExperimentGrid(name=time.strftime("%d-%m-%Y_",time.localtime())+'ppo'+'_legs')
-    eg.add('env_name', 'HumanoidBulletEnv-v0', '', False)
+    eg = ExperimentGrid(name=time.strftime("%H-%d-%m_",time.localtime())+'ppo'+'_legs')
+    eg.add('env_name', 'ChkHumanoidBulletEnv-v0', '', False)
     eg.add('seed', [3*i for i in range(1, 1+args.num_runs)])
-    eg.add('epochs', 3000)
+    eg.add('epochs', 10000)
     # eg.add('clip_ratio', 0.3)
     # eg.add('target_kl', 100)
     # eg.add('steps_per_epoch', 4000)
