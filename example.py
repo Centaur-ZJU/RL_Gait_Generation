@@ -7,4 +7,4 @@ env = gym.make("ChkHumanoidBulletEnv-v0", render=True)
 env.reset()
 for _ in range(2000):
     env.step(env.action_space.sample())
-    time.sleep(1)
+    time.sleep(.01)
