@@ -1,0 +1,43 @@
+{
+    "ac_kwargs":	{
+        "hidden_sizes":	[
+            32,
+            16
+        ]
+    },
+    "actor_critic":	"MLPActorCritic",
+    "clip_ratio":	0.2,
+    "env_fn":	"<function call_experiment.<locals>.thunk_plus.<locals>.<lambda> at 0x7fe7bb622710>",
+    "epochs":	10000,
+    "exp_name":	"12-14-07_ppo_legs",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<spinup.utils.logx.EpochLogger object at 0x7fe7bb60e990>":	{
+            "epoch_dict":	{},
+            "exp_name":	"12-14-07_ppo_legs",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"/home/chk/\u6587\u6863/Centaur/data/12-14-07_ppo_legs/12-14-07_ppo_legs_s9",
+            "output_file":	{
+                "<_io.TextIOWrapper name='/home/chk/\u6587\u6863/Centaur/data/12-14-07_ppo_legs/12-14-07_ppo_legs_s9/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"12-14-07_ppo_legs",
+        "output_dir":	"/home/chk/\u6587\u6863/Centaur/data/12-14-07_ppo_legs/12-14-07_ppo_legs_s9"
+    },
+    "max_ep_len":	1000,
+    "pi_lr":	0.0003,
+    "save_freq":	10,
+    "seed":	9,
+    "steps_per_epoch":	4000,
+    "target_kl":	0.01,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.001
+}
