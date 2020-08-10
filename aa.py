@@ -1,7 +1,11 @@
-import numpy as np
-from matplotlib import pyplot as plt
+import subprocess
+import sys
 
+def main():
+    args = sys.argv[1:]
+    cmd = 'mpiexec -n 4 ps '+' '.join(args)
+    print(cmd)
+    print(subprocess.call(cmd, shell=True))
 
-actions = np.loadtxt('actions.csv')
-plt.plot(actions[:,3])
-plt.show()
+if __name__ == '__main__':
+    main()
