@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="centaur_four">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0017046 0.029082 0.12548"
+        rpy="0 0 0" />
+      <mass
+        value="27.456" />
+      <inertia
+        ixx="0.22819"
+        ixy="5.6372E-08"
+        ixz="3.7274E-09"
+        iyy="0.229"
+        iyz="-0.0021359"
+        izz="0.16473" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.27843 1 0.3451 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="flthigh">
+    <inertial>
+      <origin
+        xyz="-0.09741 -0.077414 -0.042922"
+        rpy="0 0 0" />
+      <mass
+        value="1.3138" />
+      <inertia
+        ixx="0.019717"
+        ixy="-0.020562"
+        ixz="-0.00087075"
+        iyy="0.029249"
+        iyz="-0.00069201"
+        izz="0.047578" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flhip"
+    type="revolute">
+    <origin
+      xyz="-0.34 0.365 0.095"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="flthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="flcalf">
+    <inertial>
+      <origin
+        xyz="0.0856748977674965 -0.0988671674346421 -0.0350000101728815"
+        rpy="0 0 0" />
+      <mass
+        value="0.429886668197142" />
+      <inertia
+        ixx="0.00478485923069523"
+        ixy="0.00390830299130692"
+        ixz="-2.43975343066143E-10"
+        iyy="0.00366155714108663"
+        iyz="3.14868518025185E-10"
+        izz="0.00801567655447648" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flknee"
+    type="revolute">
+    <origin
+      xyz="-0.43841 -0.34842 0"
+      rpy="0 0 0" />
+    <parent
+      link="flthigh" />
+    <child
+      link="flcalf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="flfoot">
+    <inertial>
+      <origin
+        xyz="-0.00758813125579372 -0.0481075861136613 -0.00999999791203407"
+        rpy="0 0 0" />
+      <mass
+        value="0.139615807494904" />
+      <inertia
+        ixx="5.57828756338741E-05"
+        ixy="-6.66013242017278E-06"
+        ixz="-1.77238916409655E-12"
+        iyy="0.000308022632584879"
+        iyz="-1.47072673249997E-12"
+        izz="0.000308371589635916" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flfoot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/flfoot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flankle"
+    type="revolute">
+    <origin
+      xyz="0.36674 -0.42321 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="flcalf" />
+    <child
+      link="flfoot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="frthigh">
+    <inertial>
+      <origin
+        xyz="0.0974100678060597 -0.0774142608606015 -0.0429224437988074"
+        rpy="0 0 0" />
+      <mass
+        value="1.31379565424727" />
+      <inertia
+        ixx="0.0197171346906241"
+        ixy="0.0205621488366879"
+        ixz="0.000870751431311199"
+        iyy="0.0292491446072501"
+        iyz="-0.000692008331032773"
+        izz="0.0475775788276024" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frhip"
+    type="revolute">
+    <origin
+      xyz="0.34 0.365 0.095"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="frthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="frcalf">
+    <inertial>
+      <origin
+        xyz="-0.0856748965460823 -0.098867168493073 -0.0350000101776244"
+        rpy="0 0 0" />
+      <mass
+        value="0.429886668197151" />
+      <inertia
+        ixx="0.0047848591591618"
+        ixy="-0.0039083030015947"
+        ixz="2.77021150115979E-10"
+        iyy="0.00366155721260208"
+        iyz="2.86525263372565E-10"
+        izz="0.00801567655445849" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frknee"
+    type="revolute">
+    <origin
+      xyz="0.43841 -0.34842 0"
+      rpy="0 0 0" />
+    <parent
+      link="frthigh" />
+    <child
+      link="frcalf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="frfoot">
+    <inertial>
+      <origin
+        xyz="0.00758813125577018 -0.0481075861142882 -0.010000002087726"
+        rpy="0 0 0" />
+      <mass
+        value="0.139615807494904" />
+      <inertia
+        ixx="5.57828756338739E-05"
+        ixy="6.66013242017266E-06"
+        ixz="-1.77238078197302E-12"
+        iyy="0.000308022632584879"
+        iyz="1.47072620998503E-12"
+        izz="0.000308371589635916" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frfoot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/frfoot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frankle"
+    type="revolute">
+    <origin
+      xyz="-0.36674 -0.42321 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="frcalf" />
+    <child
+      link="frfoot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="blthigh">
+    <inertial>
+      <origin
+        xyz="0.0999995303683583 -0.0740390641437255 -0.0429224437988163"
+        rpy="0 0 0" />
+      <mass
+        value="1.31379565424727" />
+      <inertia
+        ixx="0.0183232669031058"
+        ixy="0.0201884307413908"
+        ixz="0.000893898712491211"
+        iyy="0.0306430123947685"
+        iyz="-0.000661837349471757"
+        izz="0.0475775788276025" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blhip"
+    type="revolute">
+    <origin
+      xyz="-0.34 -0.36 0.095"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="blthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="blcalf">
+    <inertial>
+      <origin
+        xyz="-0.0813995190225856 -0.102415932850592 -0.0350000101824431"
+        rpy="0 0 0" />
+      <mass
+        value="0.429886670931372" />
+      <inertia
+        ixx="0.00511444381700063"
+        ixy="-0.00384655472298357"
+        ixz="2.64650955770175E-10"
+        iyy="0.0033319725628376"
+        iyz="2.97920838170793E-10"
+        izz="0.00801567655878932" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blknee"
+    type="revolute">
+    <origin
+      xyz="0.45007 -0.33323 0"
+      rpy="0 0 0" />
+    <parent
+      link="blthigh" />
+    <child
+      link="blcalf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="blfoot">
+    <inertial>
+      <origin
+        xyz="0.00758813129501545 -0.0481075861144431 -0.0100000020888962"
+        rpy="0 0 0" />
+      <mass
+        value="0.139615807494904" />
+      <inertia
+        ixx="5.57828756338743E-05"
+        ixy="6.66013242017282E-06"
+        ixz="-1.77203146540466E-12"
+        iyy="0.00030802263258488"
+        iyz="1.47071733572551E-12"
+        izz="0.000308371589635917" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blfoot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/blfoot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blankle"
+    type="revolute">
+    <origin
+      xyz="-0.34844 -0.4384 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="blcalf" />
+    <child
+      link="blfoot" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="brthigh">
+    <inertial>
+      <origin
+        xyz="-0.1 -0.074039 -0.042922"
+        rpy="0 0 0" />
+      <mass
+        value="1.3138" />
+      <inertia
+        ixx="0.018323"
+        ixy="-0.020188"
+        ixz="-0.0008939"
+        iyy="0.030643"
+        iyz="-0.00066184"
+        izz="0.047578" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brhip"
+    type="revolute">
+    <origin
+      xyz="0.34 -0.36 0.095"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="brthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="brcalf">
+    <inertial>
+      <origin
+        xyz="0.0814 -0.10242 -0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.42989" />
+      <inertia
+        ixx="0.0051144"
+        ixy="0.0038466"
+        ixz="2.6465E-10"
+        iyy="0.003332"
+        iyz="-2.9792E-10"
+        izz="0.0080157" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brknee"
+    type="revolute">
+    <origin
+      xyz="-0.45007 -0.33323 0"
+      rpy="0 0 0" />
+    <parent
+      link="brthigh" />
+    <child
+      link="brcalf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="brfoot">
+    <inertial>
+      <origin
+        xyz="-0.0075881 -0.048108 -0.01"
+        rpy="0 0 0" />
+      <mass
+        value="0.13962" />
+      <inertia
+        ixx="5.5783E-05"
+        ixy="-6.6601E-06"
+        ixz="-1.772E-12"
+        iyy="0.00030802"
+        iyz="-1.4707E-12"
+        izz="0.00030837" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brfoot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://centaur_four/meshes/brfoot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brankle"
+    type="revolute">
+    <origin
+      xyz="0.34844 -0.4384 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="brcalf" />
+    <child
+      link="brfoot" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

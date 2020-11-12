@@ -7,13 +7,13 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--cpu', type=int, default=4)
-    parser.add_argument('--num_runs', type=int, default=3)
+    parser.add_argument('--num_runs', type=int, default=2)
     args = parser.parse_args()
 
     eg = ExperimentGrid(name=time.strftime("%d-%m:%H_",time.localtime())+'ppo'+'_legs')
     eg.add('env_name', 'ChkHumanoidBulletEnv-v0', '', False)
     eg.add('seed', [i for i in range(args.num_runs)])
-    eg.add('epochs', 10000)
+    eg.add('epochs', 1000)
     # eg.add('clip_ratio', 0.3)
     # eg.add('target_kl', 100)
     # eg.add('steps_per_epoch', 4000)

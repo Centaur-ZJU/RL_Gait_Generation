@@ -1,0 +1,93 @@
+<mujoco model="centaur_four">
+    <compiler angle="radian" inertiafromgeom="false"/>
+    <default>
+        <joint armature="1" damping="1" limited="true" stiffness="0.1"/>
+        <geom conaffinity="1" condim="3" friction="0.8 0.1 0.1" contype="1" margin="0.001" material="geom" rgba="0.8 0.6 .4 1"/>
+        <motor ctrllimited="true" ctrlrange="-.4 .4"/>
+    </default>
+    <option integrator="RK4" iterations="50" solver="PGS" timestep="0.003">
+        <!--<flags solverstat="enable" energy="enable"/>-->
+    </option>
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="base_link" file="base_link.STL" />
+        <mesh name="flthigh" file="flthigh.STL" />
+        <mesh name="flcalf" file="flcalf.STL" />
+        <mesh name="flfoot" file="flfoot.STL" />
+        <mesh name="frthigh" file="frthigh.STL" />
+        <mesh name="frcalf" file="frcalf.STL" />
+        <mesh name="frfoot" file="frfoot.STL" />
+        <mesh name="blthigh" file="blthigh.STL" />
+        <mesh name="blcalf" file="blcalf.STL" />
+        <mesh name="blfoot" file="blfoot.STL" />
+        <mesh name="brthigh" file="brthigh.STL" />
+        <mesh name="brcalf" file="brcalf.STL" />
+        <mesh name="brfoot" file="brfoot.STL" />
+    </asset>
+    <worldbody>
+    <body name="base_link" pos="0 0 1.2" quat="0 0 0 1">
+        <geom type="mesh" rgba="0.27843 1 0.3451 1" mesh="base_link" />
+        <inertial pos="0 0 0" quat="0 0 0 1" mass="10.1" diaginertia="0.16473 0.16322 0.01338" />
+        <body name="flthigh" pos="-0.34 0.365 0.095" quat="0.499998 0.5 -0.500002 -0.5">
+            <inertial pos="-0.09741 -0.077414 -0.042922" quat="-0.235892 0.659178 0.230033 0.675962" mass="1.3138" diaginertia="0.047606 0.0455901 0.00334791" />
+            <joint name="flhip" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="flthigh" />
+            <body name="flcalf" pos="-0.43841 -0.34842 0">
+                <inertial pos="0.0856749 -0.0988672 -0.035" quat="0.662519 0.662519 0.24712 0.24712" mass="0.429887" diaginertia="0.00817166 0.00801568 0.000274755" />
+                <joint name="flknee" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="flcalf" />
+                <body name="flfoot" pos="0.36674 -0.42321 -0.025">
+                    <inertial pos="-0.00758813 -0.0481076 -0.01" quat="-0.00932628 0.707045 0.00932628 0.707045" mass="0.139616" diaginertia="0.000308372 0.000308198 5.56071e-05" />
+                    <joint name="flankle" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+                    <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="flfoot" />
+                </body>
+            </body>
+        </body>
+        <body name="frthigh" pos="0.34 0.365 0.095" quat="0.499998 0.5 0.500002 0.5">
+            <inertial pos="0.0974101 -0.0774143 -0.0429224" quat="0.230034 0.675962 -0.235891 0.659177" mass="1.3138" diaginertia="0.0476055 0.0455904 0.0033479" />
+            <joint name="frhip" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="frthigh" />
+            <body name="frcalf" pos="0.43841 -0.34842 0">
+                <inertial pos="-0.0856749 -0.0988672 -0.035" quat="0.662519 0.662519 -0.24712 -0.24712" mass="0.429887" diaginertia="0.00817166 0.00801568 0.000274755" />
+                <joint name="frknee" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="frcalf" />
+                <body name="frfoot" pos="-0.36674 -0.42321 -0.025">
+                    <inertial pos="0.00758813 -0.0481076 -0.01" quat="0.00932628 0.707045 -0.00932628 0.707045" mass="0.139616" diaginertia="0.000308372 0.000308198 5.56071e-05" />
+                    <joint name="frankle" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+                    <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="frfoot" />
+                </body>
+            </body>
+        </body>
+        <body name="blthigh" pos="-0.34 -0.36 0.095" quat="0.499998 0.5 -0.500002 -0.5">
+            <inertial pos="0.0999995 -0.0740391 -0.0429224" quat="0.218732 0.679896 -0.224301 0.663013" mass="1.3138" diaginertia="0.0476055 0.0455904 0.0033479" />
+            <joint name="blhip" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="blthigh" />
+            <body name="blcalf" pos="0.45007 -0.33323 0">
+                <inertial pos="-0.0813995 -0.102416 -0.035" quat="0.667618 0.667618 -0.232995 -0.232995" mass="0.429887" diaginertia="0.00817166 0.00801568 0.000274755" />
+                <joint name="blknee" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="blcalf" />
+                <body name="blfoot" pos="-0.34844 -0.4384 -0.025">
+                    <inertial pos="0.00758813 -0.0481076 -0.01" quat="0.00932628 0.707045 -0.00932628 0.707045" mass="0.139616" diaginertia="0.000308372 0.000308198 5.56071e-05" />
+                    <joint name="blankle" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+                    <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="blfoot" />
+                </body>
+            </body>
+        </body>
+        <body name="brthigh" pos="0.34 -0.36 0.095" quat="0.499998 0.5 0.500002 0.5">
+            <inertial pos="-0.1 -0.074039 -0.042922" quat="-0.224301 0.663015 0.218729 0.679896" mass="1.3138" diaginertia="0.047606 0.0455899 0.00334814" />
+            <joint name="brhip" pos="0 0 0" axis="0 0 1" limited="true" range="-1 1" type="hinge"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="brthigh" />
+            <body name="brcalf" pos="-0.45007 -0.33323 0">
+                <inertial pos="0.0814 -0.10242 -0.035" quat="0.667617 0.667617 0.232997 0.232997" mass="0.42989" diaginertia="0.00817169 0.0080157 0.000274711" />
+                <joint name="brknee" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="brcalf" />
+                <body name="brfoot" pos="0.34844 -0.4384 -0.025">
+                    <inertial pos="-0.0075881 -0.048108 -0.01" quat="-0.00932634 0.707045 0.00932634 0.707045" mass="0.13962" diaginertia="0.00030837 0.000308196 5.56073e-05" />
+                    <joint name="brankle" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                    <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="brfoot" />
+                </body>
+            </body>
+        </body>
+        </body>
+    </worldbody>
+</mujoco>

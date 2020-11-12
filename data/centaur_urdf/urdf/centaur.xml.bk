@@ -1,0 +1,81 @@
+<mujoco model="centaur_urdf">
+    <compiler angle="radian" />
+    <default>
+        <joint armature="1" damping="1" limited="true"/>
+        <geom conaffinity="1" condim="3" friction="0.8 0.1 0.1" contype="1" margin="0.001" material="geom" rgba="0.8 0.6 .4 1"/>
+        <motor ctrllimited="true" ctrlrange="-.4 .4"/>
+    </default>
+    <option integrator="RK4" iterations="50" solver="PGS" timestep="0.003">
+        <!--<flags solverstat="enable" energy="enable"/>-->
+    </option>
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="base_link" file="base_link.STL" />
+        <mesh name="LPelvis01" file="LPelvis01.STL" />
+        <mesh name="LPelvis02" file="LPelvis02.STL" />
+        <mesh name="LThigh" file="LThigh.STL" />
+        <mesh name="LCalf" file="LCalf.STL" />
+        <mesh name="LFoot" file="LFoot.STL" />
+        <mesh name="RPelvis01" file="RPelvis01.STL" />
+        <mesh name="RPelvis02" file="RPelvis02.STL" />
+        <mesh name="RThigh" file="RThigh.STL" />
+        <mesh name="RCalf" file="RCalf.STL" />
+        <mesh name="RFoot" file="RFoot.STL" />
+    </asset>
+    <worldbody>
+    <body name="base_link" pos="0 0 1" quat="0 0 0 1">
+        <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="base_link" />
+        <inertial pos="0 0.062778 -0.001405" quat="0.141714 0.681899 -0.142054 0.703386" mass="1.869772" diaginertia="5.33577e-05 4.29501e-05 3.49363e-05" />
+        <body name="LPelvis01" pos="0.12 0.07 0" quat="0.707105 0.707108 0 0">
+            <inertial pos="0.011229 -0.003225 -0.025461" quat="0.141714 0.681899 -0.142054 0.703386" mass="0.10228" diaginertia="5.33577e-05 4.29501e-05 3.49363e-05" />
+            <joint name="Lhipy" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="LPelvis01" />
+            <body name="LPelvis02" pos="0.02 -0.02 -0.025" quat="0.707105 -0.707108 0 0">
+                <inertial pos="0.030747 0.043959 -0.053175" quat="0.410285 0.576134 -0.529644 0.468201" mass="1.2721" diaginertia="0.00587976 0.00395323 0.00286841" />
+                <joint name="Lhipz" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+                <geom type="mesh" rgba="0.64706 0.61961 0.58824 1" mesh="LPelvis02" />
+                <body name="LThigh" pos="0.13 0 -0.055" quat="0.499998 0.5 0.500002 0.5">
+                    <inertial pos="0.068249 -0.10404 0.027078" quat="0.331716 0.629968 -0.340161 0.614325" mass="1.3138" diaginertia="0.047606 0.0455908 0.00334824" />
+                    <joint name="Lhipx" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+                    <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="LThigh" />
+                    <body name="LCalf" pos="0.30717 -0.46824 0">
+                        <inertial pos="-0.075262 -0.10701 0.035" quat="0.674156 0.674156 -0.21334 -0.21334" mass="0.42989" diaginertia="0.00817173 0.0080157 0.000274772" />
+                        <joint name="Lkneex" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="LCalf" />
+                        <body name="LFoot" pos="-0.32217 -0.45805 0.025">
+                            <inertial pos="0.0075881 -0.048108 0.01" quat="0.00932634 0.707045 -0.00932634 0.707045" mass="0.13962" diaginertia="0.00030837 0.000308196 5.56073e-05" />
+                            <joint name="Lanklex" pos="0 0 0" axis="0 0 1" limited="true" range="-0.3 0.3" type="hinge"/>
+                            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="LFoot" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+        <body name="RPelvis01" pos="-0.12 0.07 0" quat="0.707105 0.707108 0 0">
+            <inertial pos="-0.011229 -0.003225 -0.025461" quat="-0.142054 0.703386 0.141714 0.681899" mass="0.10228" diaginertia="5.33577e-05 4.29501e-05 3.49363e-05" />
+            <joint name="Rhipy" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="RPelvis01" />
+            <body name="RPelvis02" pos="-0.02 -0.02 -0.025" quat="0.707105 -0.707108 0 0">
+                <inertial pos="-0.030747 0.043959 -0.053175" quat="0.468197 0.529643 -0.576136 0.410288" mass="1.2721" diaginertia="0.00587976 0.00395323 0.0028684" />
+                <joint name="Rhipz" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+                <geom type="mesh" rgba="0.64706 0.61961 0.58824 1" mesh="RPelvis02" />
+                <body name="RThigh" pos="-0.13 0 -0.055" quat="0.499998 0.5 -0.500002 -0.5">
+                    <inertial pos="-0.0682486 -0.104038 0.0270776" quat="0.614325 0.340162 -0.629968 0.331715" mass="1.3138" diaginertia="0.0476055 0.0455904 0.0033479" />
+                    <joint name="Rhipx" pos="0 0 0" axis="0 0 -1" limited="true" range="-2 2" type="hinge"/>
+                    <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="RThigh" />
+                    <body name="RCalf" pos="-0.30717 -0.46824 0">
+                        <inertial pos="0.075262 -0.10701 0.035" quat="0.674156 0.674156 0.21334 0.21334" mass="0.42989" diaginertia="0.00817173 0.0080157 0.000274772" />
+                        <joint name="Rkneex" pos="0 0 0" axis="0 0 -1" limited="true" range="-1 1" type="hinge"/>
+                        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="RCalf" />
+                        <body name="RFoot" pos="0.32217 -0.45805 0.025">
+                            <inertial pos="-0.0075881 -0.048108 0.01" quat="-0.00932634 0.707045 0.00932634 0.707045" mass="0.13962" diaginertia="0.00030837 0.000308196 5.56073e-05" />
+                            <joint name="Ranklex" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.3 0.3" type="hinge"/>
+                            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="RFoot" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+        </body>
+    </worldbody>
+</mujoco>
