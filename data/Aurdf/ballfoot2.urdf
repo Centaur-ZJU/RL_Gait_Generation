@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="ballfoot2">
+  <mujoco>
+        <compiler 
+        meshdir="."
+        balanceinertia="false"
+        discardvisual="false"/>
+  </mujoco>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.0545E-09 0.099713 0.048368"
+        rpy="0 0 0" />
+      <mass
+        value="9.0856" />
+      <inertia
+        ixx="0.30511"
+        ixy="1.56E-10"
+        ixz="-7.2585E-10"
+        iyy="0.038183"
+        iyz="0.0005074"
+        izz="0.30092" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="flthigh">
+    <inertial>
+      <origin
+        xyz="0.010372 -0.1751 -0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="2.1812" />
+      <inertia
+        ixx="0.066798"
+        ixy="0.0036526"
+        ixz="9.6406E-05"
+        iyy="0.0053494"
+        iyz="-0.0016276"
+        izz="0.069854" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/flthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/flthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flhip"
+    type="revolute">
+    <origin
+      xyz="-0.339999999999146 0.600000000000487 0.0450000000000043"
+      rpy="1.5707963267949 0.00556705998941409 -1.57079632679632" />
+    <parent
+      link="base_link" />
+    <child
+      link="flthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="flcalf">
+    <inertial>
+      <origin
+        xyz="0.0013137 -0.23597 -0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.91329" />
+      <inertia
+        ixx="0.037751"
+        ixy="0.0002068"
+        ixz="5.7725E-11"
+        iyy="0.00060529"
+        iyz="1.3275E-09"
+        izz="0.037323" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/flcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/flcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flknee"
+    type="revolute">
+    <origin
+      xyz="0.0331125958881576 -0.55902017494322 0"
+      rpy="0 0 0" />
+    <parent
+      link="flthigh" />
+    <child
+      link="flcalf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="frthigh">
+    <inertial>
+      <origin
+        xyz="0.010372 -0.1751 0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="2.1812" />
+      <inertia
+        ixx="0.066798"
+        ixy="0.0036526"
+        ixz="-9.6406E-05"
+        iyy="0.0053494"
+        iyz="0.0016276"
+        izz="0.069854" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/frthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/frthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frhip"
+    type="revolute">
+    <origin
+      xyz="0.340000000000854 0.59999999999952 0.0450000000000046"
+      rpy="1.5707963267949 0.00556705998941409 -1.57079632679632" />
+    <parent
+      link="base_link" />
+    <child
+      link="frthigh" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="frcalf">
+    <inertial>
+      <origin
+        xyz="0.0013137 -0.23597 0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.91329" />
+      <inertia
+        ixx="0.037751"
+        ixy="0.0002068"
+        ixz="5.7726E-11"
+        iyy="0.00060529"
+        iyz="1.3275E-09"
+        izz="0.037323" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/frcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/frcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frknee"
+    type="revolute">
+    <origin
+      xyz="0.0331125958881943 -0.559020174943217 0"
+      rpy="0 0 0" />
+    <parent
+      link="frthigh" />
+    <child
+      link="frcalf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="blthigh">
+    <inertial>
+      <origin
+        xyz="0.010372 -0.1751 -0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="2.1812" />
+      <inertia
+        ixx="0.066798"
+        ixy="0.0036526"
+        ixz="9.6406E-05"
+        iyy="0.0053494"
+        iyz="-0.0016276"
+        izz="0.069854" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/blthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/blthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blhip"
+    type="revolute">
+    <origin
+      xyz="-0.340000000000641 -0.449999999999507 0.0450000000000099"
+      rpy="1.5707963267949 0.00556705998941409 -1.57079632679632" />
+    <parent
+      link="base_link" />
+    <child
+      link="blthigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="blcalf">
+    <inertial>
+      <origin
+        xyz="0.0013137 -0.23597 -0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.91329" />
+      <inertia
+        ixx="0.037751"
+        ixy="0.0002068"
+        ixz="-4.859E-11"
+        iyy="0.00060529"
+        iyz="-1.6642E-10"
+        izz="0.037323" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/blcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/blcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blknee"
+    type="revolute">
+    <origin
+      xyz="0.033112595888158 -0.55902017494322 0"
+      rpy="0 0 0" />
+    <parent
+      link="blthigh" />
+    <child
+      link="blcalf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="brthigh">
+    <inertial>
+      <origin
+        xyz="0.010372 -0.1751 0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="2.1812" />
+      <inertia
+        ixx="0.066798"
+        ixy="0.0036526"
+        ixz="-9.6406E-05"
+        iyy="0.0053494"
+        iyz="0.0016276"
+        izz="0.069854" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/brthigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/brthigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brhip"
+    type="revolute">
+    <origin
+      xyz="0.339999999999359 -0.450000000000473 0.0450000000000098"
+      rpy="1.5707963267949 0.00556705998941409 -1.57079632679632" />
+    <parent
+      link="base_link" />
+    <child
+      link="brthigh" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="brcalf">
+    <inertial>
+      <origin
+        xyz="0.0013137 -0.23597 0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.91329" />
+      <inertia
+        ixx="0.037751"
+        ixy="0.0002068"
+        ixz="-8.4581E-11"
+        iyy="0.00060529"
+        iyz="-1.2422E-09"
+        izz="0.037323" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/brcalf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ballfoot2/meshes/brcalf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="brknee"
+    type="revolute">
+    <origin
+      xyz="0.0331125958881942 -0.559020174943218 0"
+      rpy="0 0 0" />
+    <parent
+      link="brthigh" />
+    <child
+      link="brcalf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

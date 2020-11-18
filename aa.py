@@ -8,8 +8,8 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
 p.setGravity(0,0,-10)
 planeId = p.loadSDF("/home/chk/anaconda3/lib/python3.7/site-packages/pybullet_data/chk_plane_stadium.sdf")
 cubeStartPos = [0,0,1.2]
-cubeStartOrientation = p.getQuaternionFromEuler([-1.57,0,0])
-boxId = p.loadMJCF("./data/bfurdf/ballfoot_centaur.xml",
+cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
+boxId = p.loadMJCF("./data/Aurdf/ballfoot2.xml",
                                     flags=p.URDF_USE_SELF_COLLISION |
                                         p.URDF_USE_SELF_COLLISION_EXCLUDE_ALL_PARENTS |
                                         p.URDF_GOOGLEY_UNDEFINED_COLORS)

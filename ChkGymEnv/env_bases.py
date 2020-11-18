@@ -21,7 +21,6 @@ class MJCFBaseBulletEnv(gym.Env):
 	"""
 
   metadata = {'render.modes': ['human', 'rgb_array'], 'video.frames_per_second': 60}
-
   def __init__(self, robot, render=False):
     self.scene = None
     self.physicsClientId = -1
