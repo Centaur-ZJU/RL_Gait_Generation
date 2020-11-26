@@ -12,7 +12,7 @@ class ChkRobot:
     with open(setting_file_path, 'r') as f:
       robots_settings = json.load(f)
       if robot_name not in robots_settings.keys():
-        raise ValueError("没有这个机器人", robot_name)
+        raise ValueError("没有这个机器人：", robot_name)
       robot_settings = robots_settings[robot_name]
     self.robot_name = robot_settings["robot_name"]
     self.self_collision = robot_settings["self_collision"]
@@ -68,11 +68,11 @@ class ChkRobot:
           self.robot_body = self.parts[self.robot_name]
 
 
-        if joint_name[:6] == "ignore":
+        if "ignore" in joint_name:
           Joint(self._p, joint_name, body, j).disable_motor()
           continue
 
-        if joint_name[:8] != "jointfix":
+        if 'fix' not in joint_name and "camera" not in joint_name:
           self.jdict[joint_name] = Joint(self._p, joint_name, body, j)
           self.ordered_joints.append(self.jdict[joint_name])
 
@@ -121,7 +121,7 @@ class ChkRobot:
     return True if (contact_ids - self.foot_ids) else False
 
   def alive(self):
-    return -1 if self.isFallDown() else 1
+    return -100 if self.isFallDown() else 1
 
 
 

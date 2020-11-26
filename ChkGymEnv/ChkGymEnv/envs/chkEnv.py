@@ -6,6 +6,7 @@ import os
 from ChkGymEnv.envs.chkRobot import ChkRobot
 from pybullet_utils import bullet_client
 from pkg_resources import parse_version
+from collections import defaultdict
 
 try:
   if os.environ["PYBULLET_EGL"]:
@@ -19,7 +20,7 @@ plane_stadium_path = os.path.join(BASE_DIR, 'data/plane.urdf')
 
 
 class ChkCentaurEnv(gym.Env):
-  def __init__(self, robot_name="yobo", render=False, debug=False):
+  def __init__(self, robot_name="yobo", render=False, debug=False, precision_s=0, precision_a=0):
     self.physicsClientId = -1
     self.ownsPhysicsClient = 0
     self.isRender = render
@@ -29,11 +30,22 @@ class ChkCentaurEnv(gym.Env):
     self.seed()
     self.action_space = self.robot.action_space
     self.observation_space = self.robot.observation_space
+    self.precision_s, self.precision_a = precision_s, precision_a
+    # if precision_s!=0 or precision_a!=0 :
+    #   self.adjustSpace()
     self.stateId = -1
     self.reset()
     self.fixedTimeStep = self._p.getPhysicsEngineParameters()['fixedTimeStep']
     self.debug_mode = debug
     
+  def adjustSpace(self):
+    if self.precision_a!=0:
+      self.action_space = gym.spaces.Box(0-self.precision_a, self.precision_a, 
+                                        shape=self.action_space.shape, dtype=int)
+    if self.precision_s!=0:
+      self.observation_space = gym.spaces.Box(-np.inf, np.inf, shape=self.observation_space.shape, 
+                                                dtype=int)
+
 
   def loadScene(self):
     self._p.configureDebugVisualizer(pybullet.COV_ENABLE_RENDERING, 0)
@@ -66,14 +78,15 @@ class ChkCentaurEnv(gym.Env):
       self.physicsClientId = self._p._client
       self._p.configureDebugVisualizer(pybullet.COV_ENABLE_GUI, 0)
 
-  def seed(self, seed=None):
+  def seed(self, seed=0):
     pass
 
   def reset(self):
     self.steps = 0
     self.done = 0
     self.reward = 0
-    s = self.robot.reset(self._p)
+    self.subRewards = defaultdict(float)
+    robot_s = self.robot.reset(self._p)
     self.potential = self.robot.calc_potential()
     if (self.stateId >= 0):
       #print("restoreState self.stateId:",self.stateId)
@@ -81,7 +94,7 @@ class ChkCentaurEnv(gym.Env):
     if (self.stateId < 0):
       self.stateId = self._p.saveState()
       #print("saving state self.stateId:",self.stateId)
-    return s
+    return self.env_state(robot_s)
 
   def _isDone(self):
     return self.robot.isFallDown()
@@ -99,26 +112,41 @@ class ChkCentaurEnv(gym.Env):
   def render(self):
     pass
 
+  def env_state(self, robot_state):
+    if self.precision_s!=0:
+      env_state = (robot_state*self.precision_s).astype(np.int) *1. / self.precision_s
+    else:
+      env_state = robot_state
+    foot_stand = np.array([0] * len(self.robot.foot_names))
+    contact_ids = set(info[4] for info in self._p.getContactPoints(self.planeId))
+    for i, f in enumerate(self.robot.foot_names):
+      foot_stand[i] = self.robot.parts[f].bodyPartIndex in contact_ids
+    env_state = np.concatenate((env_state, foot_stand))
+    return env_state
+
   def step(self, a):
     old_potential = self.robot.calc_potential()
-    info = self.robot.apply_action(a)
+    if self.precision_a!=0:
+      info = self.robot.apply_action((a * self.precision_a).astype(np.int) * 1. / self.precision_a)
+    else:
+      info = self.robot.apply_action(a)
     self._p.stepSimulation()
     self.steps += 1
     if self.isRender:
       time.sleep(1./240.)
     robot_state = self.robot.calc_state()
     self._alive = self.robot.alive()
-    done = self._isDone()
-    state = robot_state
+    done = self._alive<0
 
-    if not np.isfinite(state).all():
-      print("~INF~", state)
+    if not np.isfinite(robot_state).all():
+      print("~INF~", robot_state)
       done = True
     
     # 奖励设计
     ## 前进奖励
     progress = float(self.robot.calc_potential()-old_potential) / self.fixedTimeStep
     progress_reward = self.progress_weight * progress
+    progress /= np.clip((self.subRewards["progress_r"])/10., 0.1, 1)
 
     ## 存活奖励
     alive_reward = self.alive_weight * self._alive
@@ -126,18 +154,22 @@ class ChkCentaurEnv(gym.Env):
     ## 功率惩罚
     electricity_joints = np.abs(self.robot.torques * self.robot.joint_speeds)
     electricity_cost = self.electricity_cost_weight * float(electricity_joints.mean())
+    electricity_cost *= np.clip(self.subRewards["progress_r"]/10., 0.1, 1)
 
-    step_reward = progress_reward + alive_reward + electricity_cost
-
+    subRewards = {"alive_r":alive_reward, "electricity_c":electricity_cost, "progress_r":progress_reward}
+    
+    step_reward = sum(subRewards.values())
 
     if self.debug_mode:
       print("robot position:",self.robot.robot_body.get_position())
-      print("progress_reward:", progress_reward)
-      print("alive_reward:", alive_reward)
-      print("electricity_cost:", electricity_cost)
+      print(subRewards)
       print("step_reward:",step_reward)
 
+    
     self.reward += step_reward
-    return state, step_reward, bool(done), info
+    for k in subRewards.keys():
+      self.subRewards[k] += subRewards[k]
+    info = dict(subRewards, **info)
+    return self.env_state(robot_state), step_reward, bool(done), info
 
 

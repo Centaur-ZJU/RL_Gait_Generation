@@ -40,7 +40,9 @@ def get_args():
     parser.add_argument('--logdir', type=str, default='log')
     parser.add_argument('--render', type=float, default=0.)
     parser.add_argument('--log-interval', type=int, default=1000)
-    parser.add_argument('--debug', type=bool, default=False)
+    parser.add_argument('--debug', default=False, action='store_true')
+    parser.add_argument('--precision-a',type=int, default=1000)
+    parser.add_argument('--precision-s',type=int, default=1000)
     parser.add_argument(
         '--device', type=str,
         default='cuda' if torch.cuda.is_available() else 'cpu')
@@ -51,7 +53,7 @@ def get_args():
 
 
 def test_sac(args=get_args()):
-    env = gym.make(args.task)
+    env = gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s)
     args.state_shape = env.observation_space.shape
     args.action_shape = env.action_space.shape
     args.max_action = env.action_space.high[0]
@@ -61,10 +63,10 @@ def test_sac(args=get_args()):
           np.max(env.action_space.high))
     # train_envs = gym.make(args.task)
     train_envs = SubprocVectorEnv(
-        [lambda: gym.make(args.task) for _ in range(args.training_num)])
+        [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.training_num)])
     # test_envs = gym.make(args.task)
     test_envs = SubprocVectorEnv(
-        [lambda: gym.make(args.task) for _ in range(args.test_num)])
+        [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.test_num)])
     # seed
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
@@ -119,12 +121,17 @@ def test_sac(args=get_args()):
     log_path = os.path.join(args.logdir, args.task, 'sac')
     writer = SummaryWriter(log_path)
 
+    def save_args(args):
+        with open(os.path.join(log_path, "args.txt"), "w") as f:
+            f.write(str(args))
+
+
     def watch(args=None):
         # watch agent's performance
         print("Testing agent ...")
         policy.eval()
-        if args and args.task[:3] == "Chk" and args.render:
-            test_env = gym.make(args.task, render=True, debug=args.debug)
+        if args and "Chk" in args.task:
+            test_env = gym.make(args.task, render=True, debug=args.debug, precision_a=args.precision_a,precision_s=args.precision_s)
             test_env.seed(args.seed)
             test_collector = Collector(policy, test_env)
             test_collector.reset()
@@ -148,6 +155,7 @@ def test_sac(args=get_args()):
         exit(0)
 
     # trainer
+    save_args(args)
     train_collector.collect(n_step=args.pre_collect_step, random=True)
     result = offpolicy_trainer(
         policy, train_collector, test_collector, args.epoch,
@@ -156,7 +164,9 @@ def test_sac(args=get_args()):
         stop_fn=stop_fn, save_fn=save_fn, writer=writer,
         log_interval=args.log_interval)
     pprint.pprint(result)
-    watch()
+    watch(args)
+
+
 
 
 if __name__ == '__main__':

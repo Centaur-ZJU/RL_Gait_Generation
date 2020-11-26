@@ -2,7 +2,7 @@
     "yobo":
     {
         "action_dim": 12, 
-        "obs_dim" : 42,
+        "obs_dim" : 36,
         "robot_file_path" : "/home/chk/文档/Centaur/ChkGymEnv/ChkGymEnv/envs/descriptions/mini-cheetah-gazebo-urdf/yobo_model/yobotics_description/urdf/robot_with_kinect.urdf",
         "robot_name" : "yobo",
         "initial_z" : 0.5,
@@ -12,5 +12,45 @@
                 "FL_hip_joint","FL_thigh_joint","FL_calf_joint",
                 "RR_hip_joint","RR_thigh_joint","RR_calf_joint",
                 "FR_hip_joint","FR_thigh_joint","FR_calf_joint"]
+    },
+    "anymal":
+    {
+        "action_dim": 12, 
+        "obs_dim" : 66,
+        "robot_file_path" : "/home/chk/文档/Centaur/ChkGymEnv/ChkGymEnv/envs/descriptions/anymal_c_simple_description/urdf/anymal.urdf",
+        "robot_name" : "anymal",
+        "initial_z" : 0.5,
+        "self_collision":true,
+        "foot_names": ["LF_FOOT", "RF_FOOT", "LH_FOOT", "RH_FOOT"],
+        "motor_names" : ["LF_HAA","RF_HAA","LH_HAA","RH_HAA",
+                        "LF_HFE","RF_HFE","LH_HFE","RH_HFE",
+                        "LF_KFE","RF_KFE","LH_KFE","RH_KFE"]
+    },
+    "centaur":
+    {
+        "action_dim": 8, 
+        "obs_dim" : 24,
+        "robot_file_path" : "/home/chk/文档/Centaur/ChkGymEnv/ChkGymEnv/envs/data/Aurdf/ballfoot2.urdf",
+        "robot_name" : "centaur",
+        "initial_z" : 1.15,
+        "self_collision":true,
+        "foot_names": ["flcalf", "blcalf","frcalf","brcalf"],
+        "motor_names" : ["flhip","blhip","frhip","brhip",
+                        "flknee","blknee","frknee","brknee"]
+    },
+    "littledog":
+    {
+        "action_dim": 16, 
+        "obs_dim" : 40,
+        "robot_file_path" : "/home/chk/文档/Centaur/ChkGymEnv/ChkGymEnv/envs/descriptions/littledog_description/urdf/littledog.urdf",
+        "robot_name" : "littledog",
+        "initial_z" : 0.18,
+        "self_collision":true,
+        "foot_names": ["front_left_lower_leg","back_left_lower_leg","front_right_lower_leg","back_right_lower_leg"],
+        "motor_names" : 
+        ["front_left_hip_pitch","back_left_hip_pitch","front_right_hip_pitch","back_right_hip_pitch",
+        "front_left_hip_roll","back_left_hip_roll","front_right_hip_roll","back_right_hip_roll",
+        "front_left_knee","back_left_knee","front_right_knee","back_right_knee",
+        "front_left_ankle","back_left_ankle","front_right_ankle","back_right_ankle"]
     }
 }
