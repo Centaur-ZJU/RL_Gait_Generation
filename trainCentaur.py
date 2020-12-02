@@ -34,15 +34,15 @@ def get_args():
     parser.add_argument('--pre-collect-step', type=int, default=10000)
     parser.add_argument('--batch-size', type=int, default=256)
     parser.add_argument('--hidden-layer-size', type=int, default=256)
-    parser.add_argument('--layer-num', type=int, default=1)
-    parser.add_argument('--training-num', type=int, default=5)
-    parser.add_argument('--test-num', type=int, default=3)
+    parser.add_argument('--layer-num', type=int, default=2)
+    parser.add_argument('--training-num', type=int, default=8)
+    parser.add_argument('--test-num', type=int, default=10)
     parser.add_argument('--logdir', type=str, default='log')
     parser.add_argument('--render', type=float, default=0.)
     parser.add_argument('--log-interval', type=int, default=1000)
     parser.add_argument('--debug', default=False, action='store_true')
-    parser.add_argument('--precision-a',type=int, default=1000)
-    parser.add_argument('--precision-s',type=int, default=1000)
+    parser.add_argument('--precision-a',type=int, default=0)
+    parser.add_argument('--precision-s',type=int, default=0)
     parser.add_argument(
         '--device', type=str,
         default='cuda' if torch.cuda.is_available() else 'cpu')
@@ -64,9 +64,9 @@ def test_sac(args=get_args()):
     # train_envs = gym.make(args.task)
     train_envs = SubprocVectorEnv(
         [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.training_num)])
-    # test_envs = gym.make(args.task)
-    test_envs = SubprocVectorEnv(
-        [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.test_num)])
+    test_envs = gym.make(args.task)
+    # test_envs = SubprocVectorEnv(
+    #     [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.test_num)])
     # seed
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
@@ -144,8 +144,8 @@ def test_sac(args=get_args()):
                                             render=args.render)
         pprint.pprint(result)
 
-    def save_fn(policy):
-        torch.save(policy.state_dict(), os.path.join(log_path, 'policy.pth'))
+    def save_fn(policy, file_name = 'policy_best.pth'):
+        torch.save(policy.state_dict(), os.path.join(log_path, file_name))
 
     def stop_fn(mean_rewards):
         return False
@@ -163,8 +163,8 @@ def test_sac(args=get_args()):
         args.batch_size, args.update_per_step,
         stop_fn=stop_fn, save_fn=save_fn, writer=writer,
         log_interval=args.log_interval)
+    save_fn(policy, file_name='policy_last.pth')
     pprint.pprint(result)
-    watch(args)
 
 
 

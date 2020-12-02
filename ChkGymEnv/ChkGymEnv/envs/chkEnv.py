@@ -35,7 +35,8 @@ class ChkCentaurEnv(gym.Env):
     #   self.adjustSpace()
     self.stateId = -1
     self.reset()
-    self.fixedTimeStep = self._p.getPhysicsEngineParameters()['fixedTimeStep']
+    self.fixedTimeStep = 1./20.
+    self._p.setPhysicsEngineParameter(fixedTimeStep=self.fixedTimeStep)
     self.debug_mode = debug
     
   def adjustSpace(self):
@@ -105,9 +106,10 @@ class ChkCentaurEnv(gym.Env):
         self._p.disconnect()
     self.physicsClientId = -1
 
-  progress_weight = 1.
-  electricity_cost_weight = -.01
-  alive_weight = 1.
+  progress_weight = 3.
+  electricity_cost_weight = -.1
+  alive_weight = .1
+  pose_weight = -1.
 
   def render(self):
     pass
@@ -133,7 +135,8 @@ class ChkCentaurEnv(gym.Env):
     self._p.stepSimulation()
     self.steps += 1
     if self.isRender:
-      time.sleep(1./240.)
+      self._p.resetDebugVisualizerCamera(3, 30, -30, self.robot.robot_body.get_position())
+      time.sleep(self.fixedTimeStep)
     robot_state = self.robot.calc_state()
     self._alive = self.robot.alive()
     done = self._alive<0
@@ -142,11 +145,12 @@ class ChkCentaurEnv(gym.Env):
       print("~INF~", robot_state)
       done = True
     
+    clip_ratio = np.clip((self.subRewards["progress_r"])/100., 0.1, 1)
     # 奖励设计
     ## 前进奖励
     progress = float(self.robot.calc_potential()-old_potential) / self.fixedTimeStep
     progress_reward = self.progress_weight * progress
-    progress /= np.clip((self.subRewards["progress_r"])/10., 0.1, 1)
+    progress /= clip_ratio
 
     ## 存活奖励
     alive_reward = self.alive_weight * self._alive
@@ -154,9 +158,15 @@ class ChkCentaurEnv(gym.Env):
     ## 功率惩罚
     electricity_joints = np.abs(self.robot.torques * self.robot.joint_speeds)
     electricity_cost = self.electricity_cost_weight * float(electricity_joints.mean())
-    electricity_cost *= np.clip(self.subRewards["progress_r"]/10., 0.1, 1)
+    electricity_cost *= clip_ratio
 
-    subRewards = {"alive_r":alive_reward, "electricity_c":electricity_cost, "progress_r":progress_reward}
+    ## 姿态惩罚
+    body_pose = self._p.getEulerFromQuaternion(self.robot.robot_body.get_orientation())
+    pose_cost = self.pose_weight * (body_pose[0]**2 + body_pose[1]**2)
+    pose_cost *= clip_ratio
+
+    subRewards = {"alive_r":alive_reward, "electricity_c":electricity_cost, 
+                  "progress_r":progress_reward, "pose_c":pose_cost}
     
     step_reward = sum(subRewards.values())
 

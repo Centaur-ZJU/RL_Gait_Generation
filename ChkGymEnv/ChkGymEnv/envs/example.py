@@ -8,9 +8,7 @@ env = gym.make('ChkCentaurEnv-v0', robot_name="yobo",render=True, precision_a=10
 s = env.reset()
 print(len(s))
 for _ in range(10000):
-    # s, r, d, info = env.step(env.action_space.sample())
-    # if d:
-    #     print(s, info)
-    #     env.reset()
+    s, r, d, info = env.step(env.action_space.sample())
+    print(s, r, d, info)
     time.sleep(1./240.)
 
