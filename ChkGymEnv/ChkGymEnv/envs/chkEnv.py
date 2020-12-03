@@ -20,7 +20,7 @@ plane_stadium_path = os.path.join(BASE_DIR, 'data/plane.urdf')
 
 
 class ChkCentaurEnv(gym.Env):
-  def __init__(self, robot_name="yobo", render=False, debug=False, precision_s=0, precision_a=0):
+  def __init__(self, robot_name="centaur", render=False, debug=False, precision_s=0, precision_a=0):
     self.physicsClientId = -1
     self.ownsPhysicsClient = 0
     self.isRender = render
@@ -38,6 +38,7 @@ class ChkCentaurEnv(gym.Env):
     self.fixedTimeStep = 1./20.
     self._p.setPhysicsEngineParameter(fixedTimeStep=self.fixedTimeStep)
     self.debug_mode = debug
+    self.foot_stand = np.array([0] * len(self.robot.foot_names))
     
   def adjustSpace(self):
     if self.precision_a!=0:
@@ -83,6 +84,7 @@ class ChkCentaurEnv(gym.Env):
     pass
 
   def reset(self):
+    self.foot_stand = np.array([0] * len(self.robot.foot_names))
     self.steps = 0
     self.done = 0
     self.reward = 0
@@ -111,6 +113,7 @@ class ChkCentaurEnv(gym.Env):
   alive_weight = .1
   pose_weight = -1.
 
+
   def render(self):
     pass
 
@@ -119,11 +122,11 @@ class ChkCentaurEnv(gym.Env):
       env_state = (robot_state*self.precision_s).astype(np.int) *1. / self.precision_s
     else:
       env_state = robot_state
-    foot_stand = np.array([0] * len(self.robot.foot_names))
+    
     contact_ids = set(info[4] for info in self._p.getContactPoints(self.planeId))
     for i, f in enumerate(self.robot.foot_names):
-      foot_stand[i] = self.robot.parts[f].bodyPartIndex in contact_ids
-    env_state = np.concatenate((env_state, foot_stand))
+      self.foot_stand[i] = self.robot.parts[f].bodyPartIndex in contact_ids
+    env_state = np.concatenate((env_state, self.foot_stand))
     return env_state
 
   def step(self, a):
@@ -140,6 +143,7 @@ class ChkCentaurEnv(gym.Env):
     robot_state = self.robot.calc_state()
     self._alive = self.robot.alive()
     done = self._alive<0
+    env_state = self.env_state(robot_state)
 
     if not np.isfinite(robot_state).all():
       print("~INF~", robot_state)
@@ -180,6 +184,6 @@ class ChkCentaurEnv(gym.Env):
     for k in subRewards.keys():
       self.subRewards[k] += subRewards[k]
     info = dict(subRewards, **info)
-    return self.env_state(robot_state), step_reward, bool(done), info
+    return env_state, step_reward, bool(done), info
 
 

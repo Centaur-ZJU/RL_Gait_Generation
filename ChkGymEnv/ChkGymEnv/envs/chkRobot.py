@@ -32,6 +32,8 @@ class ChkRobot:
 
   def reset(self, bullet_client):
     self.robot_body.reset_position([0, 0, self.initial_z])
+    if self.robot_name=='centaur':
+      self.robot_body.reset_orientation(self._p.getQuaternionFromEuler([0, 0, -1.57]))
     return self.calc_state()
 
   def loadRobot(self, robot_file_path):
