@@ -32,7 +32,7 @@ class ChkRobot:
 
   def reset(self, bullet_client):
     self.robot_body.reset_position([0, 0, self.initial_z])
-    if self.robot_name=='centaur':
+    if self.robot_name=='centaur' or self.robot_name=='ball_bipedal':
       self.robot_body.reset_orientation(self._p.getQuaternionFromEuler([0, 0, -1.57]))
     return self.calc_state()
 
@@ -83,11 +83,11 @@ class ChkRobot:
   def reset_pose(self, position, orientation):
     self.parts[self.robot_name].reset_pose(position, orientation)
 
-  def apply_action(self, a):
+  def apply_action(self, a, max_force=20):
     assert (np.isfinite(a).all())
     for n, j in enumerate(self.motors):
       limit = np.abs(j.upperLimit if a[n]>0 else j.lowerLimit)
-      j.set_position(a[n] * limit)
+      j.set_position(a[n] * limit, max_force=max_force)
     return {}
 
   def calc_state(self):
@@ -96,7 +96,7 @@ class ChkRobot:
     # even elements [0::2] position, scaled to -1..+1 between limits
     # odd elements  [1::2] angular speed, scaled to show -1..+1
     self.joint_speeds = j[1::2]
-    self.torques = np.array([j.get_torque() for j in self.ordered_joints])
+    self.torques = np.array([j.get_torque() for j in self.ordered_joints], dtype=np.float32)
 
     body_pose = self.robot_body.pose()
     parts_xyz = np.array([p.pose().xyz() for p in self.parts.values()]).flatten()
@@ -112,7 +112,7 @@ class ChkRobot:
         [z, r, p, yaw],
         dtype=np.float32)
 
-    return np.concatenate([more] + [j])
+    return np.concatenate([more] + [j] + [self.torques.flatten()])
 
 
   def calc_potential(self):

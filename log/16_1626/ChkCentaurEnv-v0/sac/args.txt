@@ -1,0 +1,8 @@
+Namespace(action_shape=(8,), actor_lr=0.0003, alpha=(-8, tensor([0.], device='cuda:0', requires_grad=True), Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0003
+    weight_decay: 0
+)), alpha_lr=0.0003, auto_alpha=True, batch_size=256, buffer_size=1000000, collect_per_step=4, critic_lr=0.0003, debug=False, device='cuda', epoch=200, gamma=0.99, hidden_layer_size=256, layer_num=2, log_interval=1000, logdir='log/aa16', max_action=1.0, n_step=2, pre_collect_step=10000, precision_a=0, precision_s=0, render=0.0, resume_path=None, seed=1626, state_shape=(32,), step_per_epoch=10000, task='ChkCentaurEnv-v0', tau=0.005, test_num=10, training_num=8, update_per_step=1, watch=False)

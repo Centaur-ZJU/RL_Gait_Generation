@@ -17,7 +17,7 @@ from tianshou.utils.net.continuous import ActorProb, Critic
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, default='ChkCentaurEnv-v0')
-    parser.add_argument('--seed', type=int, default=1626)
+    parser.add_argument('--seed', type=int, default=3)
     parser.add_argument('--buffer-size', type=int, default=1000000)
     parser.add_argument('--actor-lr', type=float, default=3e-4)
     parser.add_argument('--critic-lr', type=float, default=3e-4)
@@ -40,9 +40,13 @@ def get_args():
     parser.add_argument('--logdir', type=str, default='log')
     parser.add_argument('--render', type=float, default=0.)
     parser.add_argument('--log-interval', type=int, default=1000)
+    parser.add_argument('--fps', type=int, default=60)
+    parser.add_argument('--max-force', type=int, default=20)
     parser.add_argument('--debug', default=False, action='store_true')
     parser.add_argument('--precision-a',type=int, default=0)
     parser.add_argument('--precision-s',type=int, default=0)
+    parser.add_argument('--robot',type=str, default='centaur')
+    parser.add_argument('--dw', default=False, action='store_true')
     parser.add_argument(
         '--device', type=str,
         default='cuda' if torch.cuda.is_available() else 'cpu')
@@ -53,7 +57,8 @@ def get_args():
 
 
 def test_sac(args=get_args()):
-    env = gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s)
+    env = gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s,
+                    dynamic_weight=args.dw, robot_name=args.robot,fps=args.fps, max_force=args.max_force)
     args.state_shape = env.observation_space.shape
     args.action_shape = env.action_space.shape
     args.max_action = env.action_space.high[0]
@@ -63,8 +68,10 @@ def test_sac(args=get_args()):
           np.max(env.action_space.high))
     # train_envs = gym.make(args.task)
     train_envs = SubprocVectorEnv(
-        [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.training_num)])
-    test_envs = gym.make(args.task)
+        [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s,
+                dynamic_weight=args.dw, robot_name=args.robot,fps=args.fps, max_force=args.max_force) for _ in range(args.training_num)])
+    test_envs = gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s,
+                dynamic_weight=args.dw, robot_name=args.robot,fps=args.fps, max_force=args.max_force)
     # test_envs = SubprocVectorEnv(
     #     [lambda: gym.make(args.task, precision_a=args.precision_a,precision_s=args.precision_s) for _ in range(args.test_num)])
     # seed
@@ -131,7 +138,9 @@ def test_sac(args=get_args()):
         print("Testing agent ...")
         policy.eval()
         if args and "Chk" in args.task:
-            test_env = gym.make(args.task, render=True, debug=args.debug, precision_a=args.precision_a,precision_s=args.precision_s)
+            test_env = gym.make(args.task, render=True, debug=args.debug, 
+                                precision_a=args.precision_a,precision_s=args.precision_s,
+                                dynamic_weight=args.dw, robot_name=args.robot,fps=args.fps, max_force=args.max_force)
             test_env.seed(args.seed)
             test_collector = Collector(policy, test_env)
             test_collector.reset()

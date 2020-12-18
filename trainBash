@@ -1,0 +1,10 @@
+#python trainCentaur.py --logdir log/16_3_without_dw --epoch 200 --seed 3
+#python trainCentaur.py --logdir log/16_5_without_dw --epoch 200 --seed 5 
+#python trainCentaur.py --logdir log/16_1626_without_dw --epoch 200
+# python trainCentaur.py --logdir log/bipe3 --epoch 200 --seed 3 --robot ball_bipedal --dw --auto-alpha
+# python trainCentaur.py --logdir log/bipe3_without_dw --epoch 200 --seed 3 --robot ball_bipedal --auto-alpha
+# python trainCentaur.py --logdir log/3_fps60_dw_mf20 --epoch 100 --seed 3 --fps 60 --dw --max-force 20
+python trainCentaur.py --logdir log/s3_fps40_dw_mf40 --epoch 100 --seed 3 --fps 40 --dw --max-force 40
+python trainCentaur.py --logdir log/s3_fps60_dw_mf60 --epoch 100 --seed 3 --fps 60 --dw --max-force 60
+python trainCentaur.py --logdir log/s3_fps40_dw_mf20 --epoch 100 --seed 3 --fps 40 --dw --max-force 20
+python trainCentaur.py --logdir log/s3_fps60_dw_mf20 --epoch 100 --seed 3 --fps 60 --dw --max-force 20

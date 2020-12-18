@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="ball_bipedal">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.29745 0.9631 0.99051"
+        rpy="0 0 0" />
+      <mass
+        value="5.2996" />
+      <inertia
+        ixx="0.022254"
+        ixy="9.0993E-07"
+        ixz="4.9765E-06"
+        iyy="0.017555"
+        iyz="0.0019329"
+        izz="0.033432" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="fl_thigh">
+    <inertial>
+      <origin
+        xyz="0.11721 -0.1305 -0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="1.488" />
+      <inertia
+        ixx="0.026867"
+        ixy="0.020986"
+        ixz="0.00074321"
+        iyy="0.022351"
+        iyz="-0.00082748"
+        izz="0.047654" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fl_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fl_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flhip"
+    type="revolute">
+    <origin
+      xyz="-0.046908 -0.96824 0.93625"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fl_thigh" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fl_calf">
+    <inertial>
+      <origin
+        xyz="-0.20323 -0.16374 -0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.81601" />
+      <inertia
+        ixx="0.013167"
+        ixy="-0.015798"
+        ixz="1.158E-09"
+        iyy="0.020046"
+        iyz="8.7644E-10"
+        izz="0.032473" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fl_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fl_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="flknee"
+    type="revolute">
+    <origin
+      xyz="0.3742 -0.41662 0"
+      rpy="0 0 0" />
+    <parent
+      link="fl_thigh" />
+    <child
+      link="fl_calf" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_thigh">
+    <inertial>
+      <origin
+        xyz="0.11721 -0.1305 0.041995"
+        rpy="0 0 0" />
+      <mass
+        value="1.488" />
+      <inertia
+        ixx="0.026867"
+        ixy="0.020986"
+        ixz="-0.00074321"
+        iyy="0.022351"
+        iyz="0.00082748"
+        izz="0.047654" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fr_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fr_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frhip"
+    type="revolute">
+    <origin
+      xyz="0.63309 -0.96824 0.93625"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fr_thigh" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_calf">
+    <inertial>
+      <origin
+        xyz="-0.20323 -0.16374 0.035"
+        rpy="0 0 0" />
+      <mass
+        value="0.81601" />
+      <inertia
+        ixx="0.013167"
+        ixy="-0.015798"
+        ixz="-1.7705E-11"
+        iyy="0.020046"
+        iyz="2.2084E-11"
+        izz="0.032473" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fr_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ball_bipedal/meshes/fr_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frknee"
+    type="revolute">
+    <origin
+      xyz="0.3742 -0.41662 0"
+      rpy="0 0 0" />
+    <parent
+      link="fr_thigh" />
+    <child
+      link="fr_calf" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
